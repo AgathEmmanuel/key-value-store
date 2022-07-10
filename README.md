@@ -63,7 +63,7 @@ docker push [docker-hub-username]/kvstore-service:v1
 # Replace the dockerhub username in manifests/scraper-deploy.yaml with you valid name
 
 ```
-- run kvstore on top of Kubernetes with zero downtime during deployments  
+- run kvstore on top of Kubernetes with zero downtime deployments  
 ```
 # To create deployment, service and ingress 
 kubectl create -f manifests/deploy.yaml
