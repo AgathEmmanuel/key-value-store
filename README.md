@@ -83,8 +83,6 @@ kubectl create -f manifests/ingress.yaml
 
 
 
-
-
 # To create hpa and pdb for the app service
 kubectl create -f manifests/hpa.yaml
 kubectl create -f manifests/pdb.yaml
