@@ -63,14 +63,35 @@ docker push [docker-hub-username]/kvstore-service:v1
 # Replace the dockerhub username in manifests/scraper-deploy.yaml with you valid name
 
 ```
-- run kvstore on top of Kubernetes with zero downtime deployments  
+- run kvstore on top of Kubernetes with zero downtime deployment characteristics
 ```
 # To create deployment, service and ingress 
 kubectl create -f manifests/deploy.yaml
 kubectl create -f manifests/ingress.yaml
 
+# To create deployment, service and ingress 
+###### NOTE  #####
+The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
+have different key-value pairs in each pods, and there will be no downtime for the service but,
+the pods get terminated the key value pairs in there memory also is lost
+
+kubectl create -f manifests/deploy.yaml
+kubectl create -f manifests/ingress.yaml
+
+
+
+
+
 # To create hpa and pdb for the app service
 kubectl create -f manifests/hpa.yaml
 kubectl create -f manifests/pdb.yaml
 
+```
+- sample prometheus metrics available at /metrics endpoint of kvstore-service
+```
+http_latency_status_keys_count{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="200"} 1.0
+http_latency_status_keys_sum{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="200"} 0.0005483729764819145
+
+http_response_total{method="GET",no_of_keys="4",path_template="/metrics",status_code="200"} 2.0
+http_response_total{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="404"} 1.0
 ```

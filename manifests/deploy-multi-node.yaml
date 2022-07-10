@@ -31,38 +31,30 @@ spec:
         - name: kvstore
           image: agathemmanuel/kvstore-service:v1
           imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            memory: "10Mi"
-            cpu: "100m"
-          limits:
-            memory: "20Mi"
-            cpu: "200m"
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/sh", "-c", "echo postStart Message"]
-          preStop:
-            exec:
-              command: ["/bin/sh","-c","python -s quit; while killall -0 python; do sleep 5; done"]
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8000
-          initialDelaySeconds: 5
-          periodSeconds: 15
-          successThreshold: 1
-        livenessProbe:
-          exec:
-            command:
-              - bash
-              - "-c"
-              - kill -0 $(cat /var/run/python.pid)
-          initialDelaySeconds: 5
-          periodSeconds: 10
-      terminationGracePeriodSeconds: 45
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "100m"
+            limits:
+              memory: "20Mi"
+              cpu: "200m"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["echo","postStart Message"]
+            preStop:
+              exec:
+                command: ["sleep","5"]
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            successThreshold: 1
+      terminationGracePeriodSeconds: 30
 ---
 apiVersion: v1
 kind: Service
