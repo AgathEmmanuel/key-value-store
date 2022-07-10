@@ -97,7 +97,7 @@ http_response_total{method="GET",no_of_keys="4",path_template="/metrics",status_
 http_response_total{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="404"} 1.0
 ```
 
-# NOTE - Warning 
+# NOTE 
 The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
 have different key-value pairs in each pods, and there will be no downtime for the service but,
 the pods get terminated the key value pairs in there memory also is lost, and the response to each
