@@ -65,17 +65,19 @@ docker push [docker-hub-username]/kvstore-service:v1
 ```
 - run kvstore on top of Kubernetes with zero downtime deployment characteristics
 ```
-# To create deployment, service and ingress 
-kubectl create -f manifests/deploy.yaml
-kubectl create -f manifests/ingress.yaml
 
-# To create deployment, service and ingress 
 ###### NOTE  #####
 The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
 have different key-value pairs in each pods, and there will be no downtime for the service but,
 the pods get terminated the key value pairs in there memory also is lost
 
-kubectl create -f manifests/deploy.yaml
+
+# To create deployment, service and ingress for single node cluster
+kubectl create -f manifests/deploy-single-node.yaml
+
+# To create deployment, service and ingress  for multi node cluster
+kubectl create -f manifests/deploy-multi-node.yaml
+
 kubectl create -f manifests/ingress.yaml
 
 
