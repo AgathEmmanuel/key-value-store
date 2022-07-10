@@ -55,12 +55,22 @@ docker ps
 # to get ip address of container
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <contaniner id>
 ```
-- run kvstore on top of Kubernetes
+- to push the image to dockerhub  
 ```
 docker image tag scraper_service:v1 [docker-hub-username]/kvstore-service:v1
 docker push [docker-hub-username]/kvstore-service:v1
 
 # Replace the dockerhub username in manifests/scraper-deploy.yaml with you valid name
 
-kubectl create -f manifests/
+```
+- run kvstore on top of Kubernetes
+```
+# To create deployment, service and ingress 
+kubectl create -f manifests/deploy.yaml
+kubectl create -f manifests/ingress.yaml
+
+# To create hpa and pdb for the app service
+kubectl create -f manifests/hpa.yaml
+kubectl create -f manifests/pdb.yaml
+
 ```
