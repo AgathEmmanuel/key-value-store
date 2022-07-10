@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kvstore-sts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kvstore-app
+  serviceName: "kvstore-service"
+  template:
+    metadata:
+      labels:
+        app: kvstore-app
+    spec:
+      containers:
+        - name: kvstore
+          image: agathemmanuel/kvstore-service:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "100m"
+            limits:
+              memory: "20Mi"
+              cpu: "200m"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["echo","postStart Message"]
+            preStop:
+              exec:
+                command: ["sleep","5"]
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            successThreshold: 1
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kvstore-service
+spec:
+  selector:
+    app: kvstore-app
+  clusterIP: None
+  ports:
+    - name: kvstore-port
+      protocol: TCP
+      port: 8080
+      targetPort: 8000

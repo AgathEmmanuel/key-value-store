@@ -66,7 +66,7 @@ docker push [docker-hub-username]/kvstore-service:v1
 - run kvstore on top of Kubernetes with zero downtime deployment characteristics
 ```
 
-###### NOTE  #####
+############# NOTE  ################
 The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
 have different key-value pairs in each pods, and there will be no downtime for the service but,
 the pods get terminated the key value pairs in there memory also is lost
@@ -78,6 +78,7 @@ kubectl create -f manifests/deploy-single-node.yaml
 # To create deployment, service and ingress  for multi node cluster
 kubectl create -f manifests/deploy-multi-node.yaml
 
+# To create an ingress on Minikube
 kubectl create -f manifests/ingress.yaml
 
 
@@ -97,3 +98,10 @@ http_latency_status_keys_sum{method="GET",no_of_keys="4",path_template="/get/{ke
 http_response_total{method="GET",no_of_keys="4",path_template="/metrics",status_code="200"} 2.0
 http_response_total{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="404"} 1.0
 ```
+
+# NOTE - Warning 
+The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
+have different key-value pairs in each pods, and there will be no downtime for the service but,
+the pods get terminated the key value pairs in there memory also is lost, and the response to each
+request will completely depend on the key value pairs stored in teh pods that are processing those
+requests.
