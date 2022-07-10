@@ -2,7 +2,6 @@ from fastapi import FastAPI, Path, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 import uvicorn
-
 from typing import Tuple
 import time
 from prometheus_client import Counter, Histogram
@@ -12,20 +11,13 @@ from starlette.responses import Response
 from starlette.routing import Match
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 from starlette.types import ASGIApp
-
-
 from prometheus_client import generate_latest
-
-
 
 
 
 store = {"abc-1":"abc-1","abc-2":"abc-2","xyz-1":"xyz-1","xyz-2":"xyz-2"}
 
 app = FastAPI()
-
-
-
 
 
 inf = float("inf")
@@ -41,6 +33,16 @@ HTTP_RESPONSE = Counter(
     "Total count of responses by method, path and status codes and no.of.keys ",
     ["method", "path_template", "status_code","no_of_keys"],
 )
+
+
+
+
+# A BaseModel class to enforce the structure of
+# the  incoming POST request and verify that
+class Post(BaseModel):
+    key: str
+    value: str
+
 class PrometheusMiddleware(BaseHTTPMiddleware):
     def __init__(self, app: ASGIApp, filter_unhandled_paths: bool = False) -> None:
         super().__init__(app)
@@ -85,23 +87,9 @@ class PrometheusMiddleware(BaseHTTPMiddleware):
 
 
 
+
+
 app.add_middleware(PrometheusMiddleware)
-
-
-@app.get("/metrics")
-def metrics():
-    res=generate_latest(HTTP_LATENCY_STATUS_KEYS).decode('ascii')+generate_latest(HTTP_RESPONSE).decode('ascii')
-    return Response(res)
-
-
-
-
-
-# A BaseModel class to enforce the structure of
-# the  incoming POST request and verify that
-class Post(BaseModel):
-    key: str
-    value: str
 
 
 
@@ -134,6 +122,12 @@ def search(*,prefix: Optional[str] = None,suffix: Optional[str] = None):
             else:
                 pass
     return res
+
+@app.get("/metrics")
+def metrics():
+    res=generate_latest(HTTP_LATENCY_STATUS_KEYS).decode('ascii')+generate_latest(HTTP_RESPONSE).decode('ascii')
+    return Response(res)
+
 
 
 
