@@ -31,6 +31,8 @@ source [name of your new virtual environment]/bin/activate
 pip install -r requirements.txt
 
 python3 app/kvstore.py
+
+deactivate
 ```
 - run test locally
 ```
@@ -40,6 +42,18 @@ pytest
 - build the docker image locally
 ```
 docker build -t kvstore-service:v1 .
+```
+- run the app as a docker service  
+```
+docker run kvstore-service:v1
+```
+- to get the ip-address of the kvstore-service docker container
+```
+# to get the container id
+docker ps 
+
+# to get ip address of container
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <contaniner id>
 ```
 - run kvstore on top of Kubernetes
 ```
