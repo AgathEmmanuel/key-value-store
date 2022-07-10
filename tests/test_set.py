@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-import requests
 
 from app.kvstore import app
 
@@ -27,7 +26,7 @@ def test_set_bad_format():
 
 def test_set_with_data_in_db():
     """
-    To test the response status code
+    To test the output
     when provided with existing key
     """
     res = client.post("/set",json={"key": "test-key","value": "test-value"})

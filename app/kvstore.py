@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path
+from fastapi import FastAPI, Path, HTTPException
 from pydantic import BaseModel
 from typing import Optional
 import uvicorn
@@ -111,7 +111,7 @@ def get(key: str = Path(None, description = "key for value needed in get respons
     if key in store:
         return store[key]
     else:
-        return
+        raise HTTPException(status_code = 404, detail=  "Key not found")
 
 @app.post("/set")
 def set(payload: Post) -> None:

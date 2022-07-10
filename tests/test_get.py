@@ -26,7 +26,7 @@ def test_get_existing_key():
 
 def test_output_get_existing_key():
     """
-    To test the response status code
+    To test the output
     when provided with existing key
     """
     res = client.get("/get/abc-1")
