@@ -57,10 +57,10 @@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <con
 ```
 - to push the image to dockerhub  
 ```
-docker image tag scraper_service:v1 [docker-hub-username]/kvstore-service:v1
+docker image tag kvstore-service:v1 [docker-hub-username]/kvstore-service:v1
 docker push [docker-hub-username]/kvstore-service:v1
 
-# Replace the dockerhub username in manifests/scraper-deploy.yaml with you valid name
+# Replace the dockerhub username in image of manifests/ with your valid name
 
 ```
 - run kvstore on top of Kubernetes with zero downtime deployment characteristics
