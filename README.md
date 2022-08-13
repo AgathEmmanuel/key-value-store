@@ -11,6 +11,8 @@ Create an in-memory key-value store HTTP API Service which implements:
   - /search?prefix=abc would return abc-1 and abc-2
   - /search?suffix=-1 would return abc-1 and xyz-1
   - implementation of prefix & suffix functionality for search
+- Make the application handle concurrent requests  
+- Enable consensus to ensure reliability and fault tolerance   
 - Prometheus exporter for service which measures:
   - latency of each endpoint
   - http status codes for each endpoint hit
@@ -97,7 +99,7 @@ http_response_total{method="GET",no_of_keys="4",path_template="/metrics",status_
 http_response_total{method="GET",no_of_keys="4",path_template="/get/{key}",status_code="404"} 1.0
 ```
 
-# NOTE 
+# Status  
 The kvstore is an in memory key-value store and hence each replica pods of the kvstore deployment
 have different key-value pairs in each pods, and there will be no downtime for the service but,
 the pods get terminated the key value pairs in there memory also is lost, and the response to each
@@ -115,4 +117,7 @@ requests.
 [https://medium.com/fintechexplained/advanced-python-concurrency-and-parallelism-82e378f26ced](https://medium.com/fintechexplained/advanced-python-concurrency-and-parallelism-82e378f26ced)  
 [https://medium.com/fintechexplained/advanced-python-metaprogramming-980da1be0c7d\9https://medium.com/fintechexplained/advanced-python-metaprogramming-980da1be0c7d)  
 [https://towardsdev.com/how-to-package-your-python-code-1cdf8ceabf63](https://towardsdev.com/how-to-package-your-python-code-1cdf8ceabf63)  
+[https://github.com/dianchengwangCHN/raft-key-value-store](https://github.com/dianchengwangCHN/raft-key-value-store)  
+[https://www.fivetran.com/blog/databases-demystified-distributed-databases-part-3](https://www.fivetran.com/blog/databases-demystified-distributed-databases-part-3)  
+[https://www.yugabyte.com/blog/how-does-consensus-based-replication-work-in-distributed-databases/](https://www.yugabyte.com/blog/how-does-consensus-based-replication-work-in-distributed-databases/)  
 
