@@ -103,3 +103,16 @@ have different key-value pairs in each pods, and there will be no downtime for t
 the pods get terminated the key value pairs in there memory also is lost, and the response to each
 request will completely depend on the key value pairs stored in teh pods that are processing those
 requests.
+
+
+# Links  
+[Deep Dive: etcd - Jingyi Hu, Google](https://youtu.be/DrtdrdwDpZE)  
+[https://etcd.io/docs/v2.3/benchmarks/etcd-storage-memory-benchmark/](https://etcd.io/docs/v2.3/benchmarks/etcd-storage-memory-benchmark/)  
+[https://raft.github.io/](https://raft.github.io/)  
+[https://github.com/memcached/memcached](https://github.com/memcached/memcached)  
+[https://medium.com/fintechexplained/advanced-python-how-to-implement-caching-in-python-application-9d0a4136b845](https://medium.com/fintechexplained/advanced-python-how-to-implement-caching-in-python-application-9d0a4136b845)  
+[https://medium.com/fintechexplained/advanced-python-learn-how-to-profile-python-code-1068055460f9](https://medium.com/fintechexplained/advanced-python-learn-how-to-profile-python-code-1068055460f9)  
+[https://medium.com/fintechexplained/advanced-python-concurrency-and-parallelism-82e378f26ced](https://medium.com/fintechexplained/advanced-python-concurrency-and-parallelism-82e378f26ced)  
+[https://medium.com/fintechexplained/advanced-python-metaprogramming-980da1be0c7d\9https://medium.com/fintechexplained/advanced-python-metaprogramming-980da1be0c7d)  
+[https://towardsdev.com/how-to-package-your-python-code-1cdf8ceabf63](https://towardsdev.com/how-to-package-your-python-code-1cdf8ceabf63)  
+
